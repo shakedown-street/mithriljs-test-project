@@ -1,0 +1,40 @@
+@import '~construct-ui/src/_shared/_variables';
+
+.ssContainer {
+  margin: 0 auto;
+  max-width: 1024px;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.nav {
+  background-color: $blue-grey500;
+  box-shadow: 0 2px 16px 0 rgba(101, 98, 126, 0.18);
+
+  &__content {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+  }
+
+  &__left {
+  }
+
+  &__right {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__title {
+    color: $white;
+    margin-bottom: 0;
+  }
+
+  &__username {
+    color: $white;
+    margin-right: 1rem;
+  }
+}
