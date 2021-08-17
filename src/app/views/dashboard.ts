@@ -1,5 +1,5 @@
 import m from 'mithril';
-import 'construct-ui/lib/index.css';
+import { Card } from 'construct-ui';
 
 import { AuthService } from '../services';
 
@@ -8,20 +8,20 @@ export class Dashboard {
 
   constructor(auth: AuthService) {
     this.auth = auth;
-    console.log('dashboard controller init');
   }
 
-  view() {
+  public view() {
     return [
-      m(
-        '.ssContainer',
-        {
-          style: {
-            'margin-top': '1rem',
+      m('.ssContainer', {}, [
+        m(
+          Card,
+          {
+            fluid: true,
           },
-        },
-        [m('h1', 'You made it to the dashboard!')]
-      ),
+          m('h2', 'Dashboard'),
+          m('', 'Here is some dashboard content')
+        ),
+      ]),
     ];
   }
 }

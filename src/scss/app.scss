@@ -1,5 +1,9 @@
 @import '~construct-ui/src/_shared/_variables';
 
+body {
+  background-color: $grey100;
+}
+
 .ssContainer {
   margin: 0 auto;
   max-width: 1024px;
@@ -8,8 +12,9 @@
 }
 
 .nav {
-  background-color: $blue-grey500;
-  box-shadow: 0 2px 16px 0 rgba(101, 98, 126, 0.18);
+  background-color: $blue-grey200;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
 
   &__content {
     align-items: center;
@@ -29,12 +34,6 @@
   }
 
   &__title {
-    color: $white;
     margin-bottom: 0;
-  }
-
-  &__username {
-    color: $white;
-    margin-right: 1rem;
   }
 }

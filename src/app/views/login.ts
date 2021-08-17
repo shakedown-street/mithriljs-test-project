@@ -1,5 +1,5 @@
 import m from 'mithril';
-import { Button, Form, FormGroup, FormLabel, Icon, Icons, Input } from 'construct-ui';
+import { Button, Card, Form, FormGroup, FormLabel, Icon, Icons, Input } from 'construct-ui';
 
 import { AuthService } from '../services';
 
@@ -10,7 +10,6 @@ export class Login {
 
   constructor(auth: AuthService) {
     this.auth = auth;
-    console.log('login controller init');
   }
 
   private handleSubmit(e: Event) {
@@ -42,46 +41,52 @@ export class Login {
   public view() {
     return m('.ssContainer', [
       m(
-        Form,
+        Card,
         {
-          justify: 'center',
-          onsubmit: (e) => this.handleSubmit(e),
           style: {
             margin: '1rem auto',
             width: '288px',
           },
         },
         [
-          m(FormGroup, {}, [
-            m(FormLabel, { for: 'username' }, 'Username'),
-            m(Input, {
-              contentLeft: m(Icon, { name: Icons.USER }),
-              id: 'username',
-              name: 'username',
-              type: 'text',
-              placeholder: 'Username',
-            }),
-          ]),
-          m(FormGroup, {}, [
-            m(FormLabel, { for: 'password' }, 'Password'),
-            m(Input, {
-              contentLeft: m(Icon, { name: Icons.LOCK }),
-              id: 'password',
-              name: 'password',
-              type: 'password',
-              placeholder: 'Password',
-            }),
-          ]),
-          m(FormGroup, {}, [
-            m(Button, {
-              iconRight: Icons.LOG_IN,
-              type: 'submit',
-              label: 'Login',
-              intent: 'primary',
-              fluid: true,
-              loading: this.isSubmitting,
-            }),
-          ]),
+          m('h2', 'Login'),
+          m(
+            Form,
+            {
+              justify: 'center',
+              onsubmit: (e: Event) => this.handleSubmit(e),
+            },
+            [
+              m(FormGroup, {}, [
+                m(FormLabel, { for: 'username' }, 'Username'),
+                m(Input, {
+                  contentLeft: m(Icon, { name: Icons.USER }),
+                  id: 'username',
+                  name: 'username',
+                  type: 'text',
+                }),
+              ]),
+              m(FormGroup, {}, [
+                m(FormLabel, { for: 'password' }, 'Password'),
+                m(Input, {
+                  contentLeft: m(Icon, { name: Icons.LOCK }),
+                  id: 'password',
+                  name: 'password',
+                  type: 'password',
+                }),
+              ]),
+              m(FormGroup, {}, [
+                m(Button, {
+                  iconRight: Icons.LOG_IN,
+                  type: 'submit',
+                  label: 'Login',
+                  intent: 'primary',
+                  fluid: true,
+                  loading: this.isSubmitting,
+                }),
+              ]),
+            ]
+          ),
         ]
       ),
     ]);

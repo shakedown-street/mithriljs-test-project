@@ -1,7 +1,11 @@
 import m from 'mithril';
-import { Button, Icons } from 'construct-ui';
+import { Button, Icons, Intent, MenuItem, PopoverMenu } from 'construct-ui';
+
 import { AuthService } from './services';
-import { Dashboard, Login } from './views';
+import { Dashboard, Login, Settings } from './views';
+
+import 'construct-ui/lib/index.css';
+import '../scss/app.scss';
 
 let root = document.body;
 
@@ -9,8 +13,9 @@ let root = document.body;
 const authService = new AuthService();
 
 // Define view controllers
-let login: Login = null;
-let dashboard: Dashboard = null;
+let login: Login;
+let dashboard: Dashboard;
+let settings: Settings;
 
 const Nav = {
   view: () => {
@@ -19,17 +24,42 @@ const Nav = {
       m('.nav', [
         m('.ssContainer', [
           m('.nav__content', [
-            m('.nav__left', [m('h1.nav__title', 'My App')]),
+            m('.nav__left', [
+              m(
+                'h1.nav__title',
+                {
+                  style: {
+                    cursor: 'pointer',
+                  },
+                  onclick: (e: Event) => m.route.set('/'),
+                },
+                'My App'
+              ),
+            ]),
             user &&
               m('.nav__right', [
-                m('.nav__username', `${user?.username}`),
-                m(Button, {
-                  iconRight: Icons.LOG_OUT,
-                  label: 'Logout',
-                  onclick: (e) => {
-                    authService.logout();
-                    m.route.set('/login');
-                  },
+                m(PopoverMenu, {
+                  content: [
+                    m(MenuItem, {
+                      iconLeft: Icons.USER,
+                      label: `${user?.username}`,
+                      onclick: (e: Event) => {
+                        m.route.set('/settings');
+                      },
+                    }),
+                    m(MenuItem, {
+                      iconLeft: Icons.LOG_OUT,
+                      label: 'Logout',
+                      onclick: (e: Event) => {
+                        authService.logout();
+                        m.route.set('/login');
+                      },
+                    }),
+                  ],
+                  trigger: m(Button, {
+                    intent: Intent.PRIMARY,
+                    iconLeft: Icons.USER,
+                  }),
                 }),
               ]),
           ]),
@@ -82,6 +112,17 @@ m.route(root, '/login', {
         dashboard = new Dashboard(authService);
       }
       return m(MainLayout, [m(dashboard)]);
+    },
+  },
+  '/settings': {
+    view: () => {
+      if (redirectIfNotLoggedIn()) {
+        return;
+      }
+      if (!settings) {
+        settings = new Settings(authService);
+      }
+      return m(MainLayout, [m(settings)]);
     },
   },
 });
