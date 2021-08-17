@@ -1,6 +1,7 @@
 import m from 'mithril';
-import { AuthService } from '../services';
 import { Button, Form, FormGroup, FormLabel, Icon, Icons, Input } from 'construct-ui';
+
+import { AuthService } from '../services';
 
 export class Login {
   private isSubmitting = false;

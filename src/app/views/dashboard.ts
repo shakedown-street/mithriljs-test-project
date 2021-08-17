@@ -12,10 +12,16 @@ export class Dashboard {
   }
 
   view() {
-    if (!this.auth.isLoggedIn()) {
-      m.route.set('/login');
-      return null;
-    }
-    return [m('.ssContainer', [m('h1', 'You made it to the dashboard!')])];
+    return [
+      m(
+        '.ssContainer',
+        {
+          style: {
+            'margin-top': '1rem',
+          },
+        },
+        [m('h1', 'You made it to the dashboard!')]
+      ),
+    ];
   }
 }

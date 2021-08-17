@@ -5,12 +5,14 @@ import { Dashboard, Login } from './views';
 
 let root = document.body;
 
+// Initialize services
 const authService = new AuthService();
 
+// Define view controllers
 let login: Login = null;
 let dashboard: Dashboard = null;
 
-const nav = {
+const Nav = {
   view: () => {
     const user = authService.user;
     return [
@@ -37,27 +39,49 @@ const nav = {
   },
 };
 
-const mainLayout = {
+const MainLayout = {
   view: (vnode: any) => {
-    return m('.app', [m(nav), vnode.children]);
+    return m('.app', [m(Nav), vnode.children]);
   },
 };
+
+function redirectIfLoggedIn() {
+  if (authService.isLoggedIn()) {
+    m.route.set('/dashboard');
+    return true;
+  }
+  return false;
+}
+
+function redirectIfNotLoggedIn() {
+  if (!authService.isLoggedIn()) {
+    m.route.set('/login');
+    return true;
+  }
+  return false;
+}
 
 m.route(root, '/login', {
   '/login': {
     view: () => {
+      if (redirectIfLoggedIn()) {
+        return;
+      }
       if (!login) {
         login = new Login(authService);
       }
-      return m(mainLayout, [login.view()]);
+      return m(MainLayout, [m(login)]);
     },
   },
   '/dashboard': {
     view: () => {
+      if (redirectIfNotLoggedIn()) {
+        return;
+      }
       if (!dashboard) {
         dashboard = new Dashboard(authService);
       }
-      return m(mainLayout, [dashboard.view()]);
+      return m(MainLayout, [m(dashboard)]);
     },
   },
 });
