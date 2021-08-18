@@ -26,5 +26,3 @@ npm run build
 ```bash
 npm test
 ```
-
-Test configurations are found in `package.json` -> `"jest"`. Mocks required for mithril/construct-ui are included in `jest.setup.js`.

@@ -97,6 +97,7 @@ m.route(root, '/login', {
       if (redirectIfLoggedIn()) {
         return;
       }
+      // Initialize controller if not already initialized
       if (!loginController) {
         loginController = new Login(authService);
       }
@@ -108,6 +109,7 @@ m.route(root, '/login', {
       if (redirectIfNotLoggedIn()) {
         return;
       }
+      // Initialize controller if not already initialized
       if (!dashboardController) {
         dashboardController = new Dashboard(authService);
       }
@@ -119,6 +121,7 @@ m.route(root, '/login', {
       if (redirectIfNotLoggedIn()) {
         return;
       }
+      // Initialize controller if not already initialized
       if (!settingsController) {
         settingsController = new Settings(authService);
       }

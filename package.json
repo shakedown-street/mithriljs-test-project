@@ -6,7 +6,7 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
-    "test": "jest src/tests/**",
+    "test": "jest",
     "prettier": "prettier --write 'src/**/*.{js,html,jsx,json,scss,css,md}'"
   },
   "author": "",
@@ -17,21 +17,9 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.15.0",
-    "mithril-jest": "^1.0.3",
+    "jest": "^27.0.6",
+    "mithril-query": "^4.0.1",
     "prettier": "^2.3.2",
     "sass": "^1.38.0"
-  },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "./jest.setup.js"
-    ],
-    "modulePaths": [
-      "<rootDir>/src/app",
-      "<rootDir>/node_modules"
-    ],
-    "globals": {
-      "NODE_ENV": "test"
-    },
-    "verbose": true
   }
 }
