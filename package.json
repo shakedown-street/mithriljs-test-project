@@ -6,7 +6,8 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
-    "test": "jest src/tests/**"
+    "test": "jest src/tests/**",
+    "prettier": "prettier --write 'src/**/*.{js,html,jsx,json,scss,css,md}'"
   },
   "author": "",
   "license": "ISC",
