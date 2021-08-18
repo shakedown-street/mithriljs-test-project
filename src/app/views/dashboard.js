@@ -1,16 +1,12 @@
 import m from 'mithril';
 import { Card } from 'construct-ui';
 
-import { AuthService } from '../services';
-
-export class Dashboard {
-  private auth: AuthService;
-
-  constructor(auth: AuthService) {
+class Dashboard {
+  constructor(auth) {
     this.auth = auth;
   }
 
-  public view() {
+  view() {
     return [
       m('.ssContainer', {}, [
         m(
@@ -25,3 +21,5 @@ export class Dashboard {
     ];
   }
 }
+
+export default Dashboard;

@@ -1,15 +1,14 @@
 import m from 'mithril';
 
-export class AuthService {
-  public user: any = null;
-
+class AuthService {
   constructor() {
+    this.user = null;
     if (this.isLoggedIn()) {
       this.getUser(localStorage.getItem('uid'));
     }
   }
 
-  public login({ username, password }) {
+  login({ username, password }) {
     return new Promise((resolve, reject) => {
       m.request({
         method: 'POST',
@@ -19,7 +18,7 @@ export class AuthService {
           password,
         },
       })
-        .then((data: any) => {
+        .then((data) => {
           if (data && data.id && data.token) {
             localStorage.setItem('uid', data.id);
             localStorage.setItem('token', data.token);
@@ -27,19 +26,19 @@ export class AuthService {
           }
           resolve(data);
         })
-        .catch((err: any) => {
+        .catch((err) => {
           reject(err);
         });
     });
   }
 
-  public logout() {
+  logout() {
     this.user = null;
     localStorage.removeItem('uid');
     localStorage.removeItem('token');
   }
 
-  public getUser(id) {
+  getUser(id) {
     m.request({
       method: 'GET',
       headers: {
@@ -51,7 +50,9 @@ export class AuthService {
     });
   }
 
-  public isLoggedIn() {
+  isLoggedIn() {
     return !!localStorage.getItem('uid') && !!localStorage.getItem('token');
   }
 }
+
+export default AuthService;

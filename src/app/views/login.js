@@ -1,26 +1,21 @@
 import m from 'mithril';
 import { Button, Card, Form, FormGroup, FormLabel, Icon, Icons, Input } from 'construct-ui';
 
-import { AuthService } from '../services';
-
-export class Login {
-  private isSubmitting = false;
-
-  private auth: AuthService;
-
-  constructor(auth: AuthService) {
+class Login {
+  constructor(auth) {
     this.auth = auth;
+    this.isSubmitting = false;
   }
 
-  private handleSubmit(e: Event) {
+  handleSubmit(e) {
     e.preventDefault();
     this.isSubmitting = true;
-    const target = e.target as HTMLFormElement;
+    const target = e.target;
     const inputs = target.elements;
     const values = {};
 
     for (let i = 0; i < inputs.length; i++) {
-      const input = inputs[i] as HTMLInputElement;
+      const input = inputs[i];
       values[input.name] = input.value;
     }
 
@@ -38,7 +33,7 @@ export class Login {
       });
   }
 
-  public view() {
+  view() {
     return m('.ssContainer', [
       m(
         Card,
@@ -54,7 +49,7 @@ export class Login {
             Form,
             {
               justify: 'center',
-              onsubmit: (e: Event) => this.handleSubmit(e),
+              onsubmit: (e) => this.handleSubmit(e),
             },
             [
               m(FormGroup, {}, [
@@ -92,3 +87,5 @@ export class Login {
     ]);
   }
 }
+
+export default Login;

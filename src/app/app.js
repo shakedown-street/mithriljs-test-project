@@ -13,9 +13,9 @@ let root = document.body;
 const authService = new AuthService();
 
 // Define view controllers
-let login: Login;
-let dashboard: Dashboard;
-let settings: Settings;
+let loginController;
+let dashboardController;
+let settingsController;
 
 const Nav = {
   view: () => {
@@ -31,7 +31,7 @@ const Nav = {
                   style: {
                     cursor: 'pointer',
                   },
-                  onclick: (e: Event) => m.route.set('/'),
+                  onclick: (e) => m.route.set('/'),
                 },
                 'My App'
               ),
@@ -43,14 +43,14 @@ const Nav = {
                     m(MenuItem, {
                       iconLeft: Icons.USER,
                       label: `${user?.username}`,
-                      onclick: (e: Event) => {
+                      onclick: (e) => {
                         m.route.set('/settings');
                       },
                     }),
                     m(MenuItem, {
                       iconLeft: Icons.LOG_OUT,
                       label: 'Logout',
-                      onclick: (e: Event) => {
+                      onclick: (e) => {
                         authService.logout();
                         m.route.set('/login');
                       },
@@ -70,7 +70,7 @@ const Nav = {
 };
 
 const MainLayout = {
-  view: (vnode: any) => {
+  view: (vnode) => {
     return m('.app', [m(Nav), vnode.children]);
   },
 };
@@ -97,10 +97,10 @@ m.route(root, '/login', {
       if (redirectIfLoggedIn()) {
         return;
       }
-      if (!login) {
-        login = new Login(authService);
+      if (!loginController) {
+        loginController = new Login(authService);
       }
-      return m(MainLayout, [m(login)]);
+      return m(MainLayout, [m(loginController)]);
     },
   },
   '/dashboard': {
@@ -108,10 +108,10 @@ m.route(root, '/login', {
       if (redirectIfNotLoggedIn()) {
         return;
       }
-      if (!dashboard) {
-        dashboard = new Dashboard(authService);
+      if (!dashboardController) {
+        dashboardController = new Dashboard(authService);
       }
-      return m(MainLayout, [m(dashboard)]);
+      return m(MainLayout, [m(dashboardController)]);
     },
   },
   '/settings': {
@@ -119,10 +119,10 @@ m.route(root, '/login', {
       if (redirectIfNotLoggedIn()) {
         return;
       }
-      if (!settings) {
-        settings = new Settings(authService);
+      if (!settingsController) {
+        settingsController = new Settings(authService);
       }
-      return m(MainLayout, [m(settings)]);
+      return m(MainLayout, [m(settingsController)]);
     },
   },
 });
